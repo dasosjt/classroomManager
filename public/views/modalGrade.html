@@ -1,0 +1,22 @@
+<div class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{modalTitle}}</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					Nombre:<input class="form-control" type="text" ng-model="grade.name"> <br />
+					Profesor:<select class="form-control" ng-model="grade.professor_id"><option ng-repeat="prof in professors" value="{{prof.id}}">{{prof.name}} {{prof.lastname}}</select><br />
+			 	</form>
+				<div class="modal-footer">
+						<button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button ng-show="formCreate" type="submit" ng-click="createGrade()" class="btn btn-primary" data-dismiss="modal">Crear</button>
+						<button ng-show="!formCreate" type="submit" ng-click="editGrade()" class="btn btn-primary" data-dismiss="modal">Editar</button>
+						<button ng-show="!formCreate" type="submit" ng-click="deleteGrade()" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

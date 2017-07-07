@@ -1,0 +1,23 @@
+<div class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{{modalTitle}}</h4>
+			</div>
+			<div class="modal-body">
+				<form>
+					Nombre:<input class="form-control" type="text" ng-model="professor.name"> <br />
+					Apellido:<input class="form-control" type="text" ng-model="professor.lastname"><br />
+					Género:<input class="form-control" type="text" ng-model="professor.gender"><br />
+			 	</form>
+				<div class="modal-footer">
+						<button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button ng-show="formCreate" type="submit" ng-click="createProfessor()" class="btn btn-primary" data-dismiss="modal">Crear</button>
+						<button ng-show="!formCreate" type="submit" ng-click="editProfessor()" class="btn btn-primary" data-dismiss="modal">Editar</button>
+						<button ng-show="!formCreate" type="submit" ng-click="deleteProfessor()" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

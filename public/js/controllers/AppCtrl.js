@@ -53,7 +53,11 @@ angular.module('AppCtrl', []).controller('AppController', function($scope, $http
   $scope.gradeModal = function(action, id) {
     ModalService.showModal({
       templateUrl: 'views/modalGrade.html',
-      controller: "ModalGradeController"
+      controller: "ModalGradeController",
+      inputs: {
+        action: action,
+	id: id
+      }
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(result) {
@@ -67,7 +71,11 @@ angular.module('AppCtrl', []).controller('AppController', function($scope, $http
   $scope.professorModal = function(action, id) {
     ModalService.showModal({
       templateUrl: 'views/modalProfessor.html',
-      controller: "ModalProfessorController"
+      controller: "ModalProfessorController",
+      inputs: {
+        action: action,
+	id: id
+      }
     }).then(function(modal) {
       modal.element.modal();
       modal.close.then(function(result) {

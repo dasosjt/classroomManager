@@ -37,7 +37,13 @@ angular.module('ModalStudentCtrl', []).controller('ModalStudentController', func
 
   $scope.editStudent = function(){
     console.log($scope.student);
-    close("closeModal", 500);
+    $http.post('/editStudent/', $scope.student).then(function(res){
+      console.log('editStudent',res);
+      close("closeModal", 500);
+    }, function(err){
+      console.log(err);
+      close("closeModal", 500);
+    });
   }
 
   $scope.deleteStudent = function(){
