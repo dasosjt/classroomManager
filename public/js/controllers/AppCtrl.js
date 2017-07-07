@@ -2,12 +2,25 @@ angular.module('AppCtrl', []).controller('AppController', function($scope, $http
   $scope.selectedGrade = {name: "Ninguno", id: -1};
   $scope.selectedGradeProfessor = {name: "Ninguno", lastname: "", id: -1};
 
-  $http.get('/grades').then(function(res){
-    console.log(res.data.rows);
-    $scope.grades = res.data.rows;
-  }, function(err){
-    console.log(err);
-  });
+  var getGrades = function(){
+    $http.get('/grades').then(function(res){
+      console.log(res.data.rows);
+      $scope.grades = res.data.rows;
+    }, function(err){
+      console.log(err);
+    });
+  }
+
+  var getGrade = function(id){
+    $http.get('/grade/'+id).then(function(res){
+      console.log(res.data.rows[0]);
+      $scope.selectedGrade.name = res.data.rows[0].name;    
+    }, function(err){
+      console.log(err);
+    });
+  }
+  
+  getGrades();
 
   $scope.selectGrade = function(value){
     $scope.selectedGrade.name = value.name;
@@ -44,7 +57,11 @@ angular.module('AppCtrl', []).controller('AppController', function($scope, $http
       modal.element.modal();
       modal.close.then(function(result) {
         console.log(result);
-          });
+	console.log("Selected Grade", $scope.selectedGrade);
+	getGrade($scope.selectedGrade.id);      
+	$scope.selectGrade($scope.selectedGrade);
+	getGrades();
+      });
     }).catch(function(err){
       console.log(err);
     });
@@ -62,7 +79,11 @@ angular.module('AppCtrl', []).controller('AppController', function($scope, $http
       modal.element.modal();
       modal.close.then(function(result) {
         console.log(result);
-          });
+	console.log("Selected Grade", $scope.selectedGrade);
+	getGrade($scope.selectedGrade.id);      
+	$scope.selectGrade($scope.selectedGrade);
+	getGrades();
+       });
     }).catch(function(err){
       console.log(err);
     });
@@ -80,7 +101,11 @@ angular.module('AppCtrl', []).controller('AppController', function($scope, $http
       modal.element.modal();
       modal.close.then(function(result) {
         console.log(result);
-          });
+	console.log("Selected Grade", $scope.selectedGrade);
+	getGrade($scope.selectedGrade.id);      
+	$scope.selectGrade($scope.selectedGrade);
+	getGrades();
+       });
     }).catch(function(err){
       console.log(err);
     });

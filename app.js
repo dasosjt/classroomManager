@@ -58,7 +58,7 @@ app.get('/student/:id', function(req, res){
 });
 
 app.get('/grade/:id', function(req, res){
-  pool.query('SELECT grade.id, grade.name, grade.professor_id, professor.name AS professorName, professor.lastname as professorLastName FROM grade INNER JOIN professor ON (grade.professor_id = professor.id) WHERE grade.id = '+req.params.id, function(err, result){
+  pool.query('SELECT grade.id, grade.name, grade.professor_id, professor.name AS professorName, professor.lastname as professorLastName FROM grade LEFT JOIN professor ON (grade.professor_id = professor.id) WHERE grade.id = '+req.params.id, function(err, result){
     if(err) console.log(err);
     res.send(result);
   })
