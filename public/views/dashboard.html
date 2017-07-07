@@ -32,7 +32,7 @@
 				Alumnos del Grado: {{selectedGrade.name}}
 				<a class="btn btn-sm btn-primary pull-right btn-margin" ng-click="gradeModal('edit', selectedGrade.id)"> Editar </a>
 			</h3>
-			<h4 class=""> 
+			<h4 class="">
 				Nombre del Profesor: {{selectedGradeProfessor.name}} {{selectedGradeProfessor.lastname}}
 				<a class="btn btn-sm btn-primary pull-right btn-margin" ng-click="professorModal('edit', selectedGradeProfessor.id)"> Editar </a>
 			</h4>
@@ -50,7 +50,7 @@
 						<td>{{$index+1}}</td>
 						<td>{{student.name}}</td>
 						<td>{{student.lastname}}</td>
-						<td>{{student.genre}}</td>
+						<td>{{student.gender}}</td>
 						<td>{{student.section}}</td>
 						<td><a class="btn btn-sm btn-primary btn-margin" ng-click="studentModal('edit', student.id)"> Editar </a></td>
 					</tr>

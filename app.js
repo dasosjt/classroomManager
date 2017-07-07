@@ -22,8 +22,15 @@ app.get('/grades', function(req, res){
   })
 });
 
+app.get('/professors', function(req, res){
+  pool.query('SELECT id, name FROM public.professor', function(err, result){
+    if (err) console.log(err);
+    res.send(result);
+  })
+});
+
 app.get('/studentsPerGrade/:id', function(req, res){
-  pool.query('SELECT student.id, student.name, student.lastname, student.genre, student_grade.section FROM student INNER JOIN student_grade ON (student.id = student_grade.student_id) WHERE student_grade.grade_id = '+req.params.id, function(err, result){
+  pool.query('SELECT student.id, student.name, student.lastname, student.gender, student_grade.section FROM student INNER JOIN student_grade ON (student.id = student_grade.student_id) WHERE student_grade.grade_id = '+req.params.id, function(err, result){
     if (err) console.log(err);
     res.send(result);
   })
@@ -34,6 +41,46 @@ app.get('/professorPerGrade/:id', function(req, res){
     if (err) console.log(err);
     res.send(result);
   })
+});
+
+app.get('/student/:id', function(req, res){
+  pool.query('SELECT student.id, student.name, student.lastname, student.gender, student_grade.section, grade.name as gradeName, grade.id as gradeId FROM (student INNER JOIN student_grade ON (student.id = student_grade.student_id)) INNER JOIN grade ON (grade.id = student_grade.grade_id) WHERE student_grade.student_id = '+req.params.id, function(err, result){
+    if (err) console.log(err);
+    res.send(result);
+  })
+});
+
+app.post('/deleteStudent/', function(req, res){
+  console.log('DELETE FROM student_grade WHERE student_grade.student_id = '+req.body.id);
+  pool.query('DELETE FROM student_grade WHERE student_grade.student_id = '+req.body.id, function(err, result){
+    if (err) console.log(err);
+    console.log('DELETE FROM student WHERE student.id = '+req.body.id);
+    pool.query('DELETE FROM student WHERE student.id = '+req.body.id, function(err, result){
+      if(err) console.log(err);
+      console.log('DELETED STUDENT');
+    })
+  })
+  res.sendStatus(200);
+});
+
+app.post('/createStudent', function(req, res){
+  pool.query('SELECT max(student.id) AS maxid FROM student', function(err, result){
+    if (err) console.log(err);
+    var newId = result.rows[0].maxid+1;
+    console.log('INSERT INTO student(id, name, lastname, gender) VALUES ('+newId+', \''+req.body.name+'\', \''+req.body.lastname+'\', \''+req.body.gender+'\')');
+    pool.query('INSERT INTO student(id, name, lastname, gender) VALUES ('+newId+', \''+req.body.name+'\', \''+req.body.lastname+'\', \''+req.body.gender+'\')', function(err, result){
+      if (err) console.log(err);
+      pool.query('SELECT max(student_grade.id) AS maxid FROM student_grade', function(err, result){
+        var sgId = result.rows[0].maxid+1;
+        console.log('INSERT INTO student_grade (id, student_id, grade_id, section) VALUES ('+sgId+', '+newId+', '+req.body.gradeid+', \''+req.body.section+'\')');
+        pool.query('INSERT INTO student_grade (id, student_id, grade_id, section) VALUES ('+sgId+', '+newId+', '+req.body.gradeid+', \''+req.body.section+'\')', function(err, result){
+          if(err) console.log(err);
+          console.log('CREATED STUDENT');
+        })
+      })
+    })
+  })
+  res.sendStatus(200);
 });
 
 app.get('*', function (req, res){

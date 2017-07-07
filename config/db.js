@@ -4,6 +4,6 @@ module.exports = {
   password: '',
   host: 'localhost',
   port: 5432,
-  max: 10,
-  idleTimeoutMillis: 3000,
+  max: 100,
+  idleTimeoutMillis: 20000,
 };

@@ -6,18 +6,20 @@
 				<h4 class="modal-title">{{modalTitle}}</h4>
 			</div>
 			<div class="modal-body">
-					<form class="">
-						<input class="form-control form-margin" placeholder="Nombre" type="text">
-						<input class="form-control form-margin" placeholder="Apellido" type="text">
-						<input class="form-control form-margin" placeholder="Género" type="text">
-					</form>
-
-			</div>
-			<div class="modal-footer">
-	  			<button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Crear</button>
+				<form>
+					Nombre:<input class="form-control" type="text" ng-model="student.name"> <br />
+					Apellido:<input class="form-control" type="text" ng-model="student.lastname"><br />
+					Género:<input class="form-control" type="text" ng-model="student.gender"><br />
+					Grado:<select class="form-control" ng-model="student.gradeid"><option ng-repeat="grade in grades" value="{{grade.id}}">{{grade.name}}</select><br />
+					Seccion:<input class="form-control" type="text" ng-model="student.section"><br />
+			 	</form>
+				<div class="modal-footer">
+						<button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button ng-show="formCreate" type="submit" ng-click="createStudent()" class="btn btn-primary" data-dismiss="modal">Crear</button>
+						<button ng-show="!formCreate" type="submit" ng-click="editStudent()" class="btn btn-primary" data-dismiss="modal">Editar</button>
+						<button ng-show="!formCreate" type="submit" ng-click="deleteStudent()" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
