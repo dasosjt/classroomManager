@@ -1,3 +1,4 @@
+var port = process.env.PORT || 8080;
 var express = require('express');
 var path = require('path');
 var morgan = require('morgan');
@@ -180,6 +181,6 @@ app.get('*', function (req, res){
   res.sendFile(path.join(__dirname, './public', '/views/index.html'));
 });
 
-app.listen(8080, function(){
-  console.log('Magic happens on port 8080')
+app.listen(port, function(){
+  console.log('Magic happens on port', port)
 });
